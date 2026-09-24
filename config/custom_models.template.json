@@ -1,0 +1,49 @@
+{
+  "models": [
+    {
+      "name": "gemini-3.8-flash-high",
+      "displayName": "Gemini 3.8 Flash High (Native)",
+      "provider": "google",
+      "apiUrl": "http://127.0.0.1:3000/v1beta",
+      "apiKey": "dummy-token",
+      "stream": true,
+      "description": "Google Gemini 3.8 Flash High through Antigravity-Manager"
+    },
+    {
+      "name": "gemini-3.7-flash-high",
+      "displayName": "Gemini 3.7 Flash High (Native)",
+      "provider": "google",
+      "apiUrl": "http://127.0.0.1:3000/v1beta",
+      "apiKey": "dummy-token",
+      "stream": true,
+      "description": "Google Gemini 3.7 Flash High through Antigravity-Manager"
+    },
+    {
+      "name": "gemini-3.7-flash-medium",
+      "displayName": "Gemini 3.7 Flash Medium (Native)",
+      "provider": "google",
+      "apiUrl": "http://127.0.0.1:3000/v1beta",
+      "apiKey": "dummy-token",
+      "stream": true,
+      "description": "Google Gemini 3.7 Flash Medium through Antigravity-Manager"
+    },
+    {
+      "name": "gemini-3.7-flash-low",
+      "displayName": "Gemini 3.7 Flash Low (Native)",
+      "provider": "google",
+      "apiUrl": "http://127.0.0.1:3000/v1beta",
+      "apiKey": "dummy-token",
+      "stream": true,
+      "description": "Google Gemini 3.7 Flash Low through Antigravity-Manager"
+    },
+    {
+      "name": "gemini-3.7-flash",
+      "displayName": "Gemini 3.7 Flash (Native)",
+      "provider": "google",
+      "apiUrl": "http://127.0.0.1:3000/v1beta",
+      "apiKey": "dummy-token",
+      "stream": true,
+      "description": "Google Gemini 3.7 Flash through Antigravity-Manager"
+    }
+  ]
+}

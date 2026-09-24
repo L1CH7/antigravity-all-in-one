@@ -1,0 +1,19 @@
+# Node dependencies & build artifacts
+node_modules/
+dist/
+*.log
+
+# Downloaded binaries & AppImages
+bin/*.AppImage
+bin/*.deb
+bin/*.tar.gz
+!bin/.gitkeep
+
+# Temporary & backup files
+.antigravity-model-patch/
+*.backup
+*.tmp
+.DS_Store
+
+# User configs
+*.local.json
