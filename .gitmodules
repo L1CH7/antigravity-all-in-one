@@ -1,0 +1,3 @@
+[submodule "modules/antigravity-add-model"]
+	path = modules/antigravity-add-model
+	url = https://github.com/L1CH7/antigravity-add-model.git
