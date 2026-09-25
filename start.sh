@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-#  Antigravity Suite — Единый мастер-лаунчер
+#  Antigravity All-in-One — Единый мастер-лаунчер
 #  Запускает Antigravity-Manager в фоне (если не запущен) и стартует IDE
 # ==============================================================================
 
@@ -16,7 +16,7 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-echo -e "${CYAN}${BOLD}🚀 Запуск Antigravity Suite...${NC}"
+echo -e "${CYAN}${BOLD}🚀 Запуск Antigravity All-in-One Suite...${NC}"
 
 # 1. Проверяем / запускаем Antigravity-Manager
 MANAGER_APPIMAGE="$ROOT_DIR/bin/Antigravity-Manager.AppImage"
@@ -35,7 +35,7 @@ else
         sleep 2
         echo -e "${GREEN}✓ Antigravity-Manager запущен.${NC}"
     else
-        echo -e "${YELLOW}⚠️ $MANAGER_APPIMAGE не найден. Запустите ./install.sh для его загрузки.${NC}"
+        echo -e "${YELLOW}ℹ️ $MANAGER_APPIMAGE не найден. Запустите ./install.sh для его загрузки.${NC}"
     fi
 fi
 

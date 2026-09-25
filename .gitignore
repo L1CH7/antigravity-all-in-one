@@ -3,16 +3,15 @@ node_modules/
 dist/
 *.log
 
-# Downloaded binaries & AppImages
-bin/*.AppImage
-bin/*.deb
-bin/*.tar.gz
+# Downloaded binaries & releases
+bin/
 !bin/.gitkeep
 
 # Temporary & backup files
 .antigravity-model-patch/
 *.backup
 *.tmp
+.last_target_path
 .DS_Store
 
 # User configs
