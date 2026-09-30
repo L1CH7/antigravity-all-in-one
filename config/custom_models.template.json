@@ -65,7 +65,7 @@
     },
     {
       "name": "gemini-3.7-flash-tiered",
-      "displayName": "Gemini 3.7 Flash Tiered (Native)",
+      "displayName": "Gemini 3.7 Flash Tiered",
       "provider": "google",
       "apiUrl": "http://127.0.0.1:8045/v1beta",
       "apiKey": "dummy-token",
