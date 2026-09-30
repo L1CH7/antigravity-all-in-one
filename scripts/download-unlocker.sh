@@ -11,43 +11,72 @@ UNLOCKER_DIR="$BIN_DIR/unlocker"
 
 mkdir -p "$BIN_DIR" "$UNLOCKER_DIR"
 
-echo "🔍 Проверка обновлений Antigravity Unlocker на GitHub (confeden/Antigravity)..."
+# Цвета для вывода
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+CYAN='\033[0;36m'
+NC='\033[0m'
 
-REPO="confeden/Antigravity"
-LATEST_RELEASE_JSON=$(curl -sL --connect-timeout 10 "https://api.github.com/repos/$REPO/releases/latest" || true)
-
-if [ -z "$LATEST_RELEASE_JSON" ] || echo "$LATEST_RELEASE_JSON" | grep -q "API rate limit"; then
-    echo "⚠️ Не удалось получить данные через GitHub API (лимит запросов или нет сети)."
-    if [ -f "$UNLOCKER_DIR/ag_unlocker" ]; then
-        echo "ℹ️ Используем существующий $UNLOCKER_DIR/ag_unlocker"
-        exit 0
+DO_DOWNLOAD=true
+if [ -s "$UNLOCKER_DIR/ag_unlocker" ]; then
+    echo -e "${GREEN}✓ Antigravity Unlocker уже установлен в $UNLOCKER_DIR${NC}"
+    read -r -p "Хотите перекачать актуальный релиз Unlocker с GitHub? [y/N]: " RE_DOWNLOAD
+    RE_DOWNLOAD="${RE_DOWNLOAD:-n}"
+    if [[ ! "$RE_DOWNLOAD" =~ ^[YyДд]$ ]]; then
+        DO_DOWNLOAD=false
+        echo -e "${CYAN}ℹ️ Используем существующий Unlocker.${NC}"
     fi
-    FALLBACK_URL="https://github.com/confeden/Antigravity/releases/download/v2.15.1.3/AG_2.15.1.3_linux.tar.gz"
-    DOWNLOAD_URL="$FALLBACK_URL"
-    TAG="v2.15.1.3"
 else
-    TAG=$(echo "$LATEST_RELEASE_JSON" | grep -E '"tag_name":' | head -n1 | cut -d'"' -f4)
-    DOWNLOAD_URL=$(echo "$LATEST_RELEASE_JSON" | grep -E 'browser_download_url.*_linux\.tar\.gz"' | head -n1 | cut -d'"' -f4)
+    read -r -p "Скачать Antigravity Unlocker из GitHub Releases? [Y/n]: " WANT_DOWNLOAD
+    WANT_DOWNLOAD="${WANT_DOWNLOAD:-y}"
+    if [[ ! "$WANT_DOWNLOAD" =~ ^[YyДд]$ ]]; then
+        DO_DOWNLOAD=false
+        echo -e "${YELLOW}ℹ️ Загрузка Unlocker пропущена пользователем.${NC}"
+    fi
 fi
 
-if [ -z "$DOWNLOAD_URL" ]; then
-    echo "❌ Не найдена ссылка на скачивание Linux tar.gz для Antigravity Unlocker."
-    exit 1
-fi
+if [ "$DO_DOWNLOAD" = true ]; then
+    echo "🔍 Проверка обновлений Antigravity Unlocker на GitHub (confeden/Antigravity)..."
 
-TEMP_ARCHIVE="${BIN_DIR}/unlocker_latest.tar.gz"
+    REPO="confeden/Antigravity"
+    LATEST_RELEASE_JSON=$(curl -sL --connect-timeout 10 "https://api.github.com/repos/$REPO/releases/latest" || true)
 
-echo "⬇️ Скачивание Antigravity Unlocker $TAG..."
-echo "URL: $DOWNLOAD_URL"
+    if [ -z "$LATEST_RELEASE_JSON" ] || echo "$LATEST_RELEASE_JSON" | grep -q "API rate limit"; then
+        echo "⚠️ Не удалось получить данные через GitHub API (лимит запросов или нет сети)."
+        if [ -s "$UNLOCKER_DIR/ag_unlocker" ]; then
+            echo "ℹ️ Используем существующий $UNLOCKER_DIR/ag_unlocker"
+            DO_DOWNLOAD=false
+        else
+            FALLBACK_URL="https://github.com/confeden/Antigravity/releases/download/v2.15.1.3/AG_2.15.1.3_linux.tar.gz"
+            DOWNLOAD_URL="$FALLBACK_URL"
+            TAG="v2.15.1.3"
+        fi
+    else
+        TAG=$(echo "$LATEST_RELEASE_JSON" | grep -E '"tag_name":' | head -n1 | cut -d'"' -f4)
+        DOWNLOAD_URL=$(echo "$LATEST_RELEASE_JSON" | grep -E 'browser_download_url.*_linux\.tar\.gz"' | head -n1 | cut -d'"' -f4)
+    fi
 
-if curl -L --progress-bar -o "$TEMP_ARCHIVE" "$DOWNLOAD_URL"; then
-    echo "📦 Распаковка Unlocker в $UNLOCKER_DIR..."
-    tar -xzf "$TEMP_ARCHIVE" -C "$UNLOCKER_DIR" --strip-components=1 2>/dev/null || tar -xzf "$TEMP_ARCHIVE" -C "$UNLOCKER_DIR"
-    rm -f "$TEMP_ARCHIVE"
-    chmod +x "$UNLOCKER_DIR/ag_unlocker" "$UNLOCKER_DIR/launch.sh" "$UNLOCKER_DIR/install.sh" 2>/dev/null || true
-    echo "✅ Antigravity Unlocker успешно установлен в $UNLOCKER_DIR"
-else
-    rm -f "$TEMP_ARCHIVE"
-    echo "❌ Ошибка при скачивании Antigravity Unlocker."
-    exit 1
+    if [ "$DO_DOWNLOAD" = true ]; then
+        if [ -z "${DOWNLOAD_URL:-}" ]; then
+            echo "❌ Не найдена ссылка на скачивание Linux tar.gz для Antigravity Unlocker."
+            exit 1
+        fi
+
+        TEMP_ARCHIVE="${BIN_DIR}/unlocker_latest.tar.gz"
+
+        echo "⬇️ Скачивание Antigravity Unlocker $TAG..."
+        echo "URL: $DOWNLOAD_URL"
+
+        if curl -L --progress-bar -o "$TEMP_ARCHIVE" "$DOWNLOAD_URL"; then
+            echo "📦 Распаковка Unlocker в $UNLOCKER_DIR..."
+            tar -xzf "$TEMP_ARCHIVE" -C "$UNLOCKER_DIR" --strip-components=1 2>/dev/null || tar -xzf "$TEMP_ARCHIVE" -C "$UNLOCKER_DIR"
+            rm -f "$TEMP_ARCHIVE"
+            chmod +x "$UNLOCKER_DIR/ag_unlocker" "$UNLOCKER_DIR/launch.sh" "$UNLOCKER_DIR/install.sh" 2>/dev/null || true
+            echo -e "${GREEN}✅ Antigravity Unlocker успешно установлен в $UNLOCKER_DIR${NC}"
+        else
+            rm -f "$TEMP_ARCHIVE"
+            echo "❌ Ошибка при скачивании Antigravity Unlocker."
+            exit 1
+        fi
+    fi
 fi

@@ -31,18 +31,54 @@ if [ ! -d "$RESOURCES_DIR" ]; then
     fi
 fi
 
+run_npm() {
+    if npm -v >/dev/null 2>&1; then
+        npm "$@"
+    else
+        # Fallback обертка для обхода бага сломанного semver в Arch Linux
+        node -e '
+            process.argv = [process.argv[0], "/usr/bin/npm", ...process.argv.slice(1)];
+            const Module = require("module");
+            const orig = Module._resolveFilename;
+            Module._resolveFilename = function(req, p, m, o) {
+                if (req.startsWith("semver")) return orig.call(this, "/usr/lib/node_modules/semver" + req.slice(6), p, m, o);
+                return orig.apply(this, arguments);
+            };
+            require("/usr/lib/node_modules/npm/bin/npm-cli.js");
+        ' "$@"
+    fi
+}
+
+# 1. Проверяем наличие и инициализируем сабмодуль, если нужно
+if [ ! -f "$ADD_MODEL_DIR/package.json" ]; then
+    echo "📦 Инициализация сабмодуля antigravity-add-model..."
+    git -C "$ROOT_DIR" submodule update --init --recursive modules/antigravity-add-model || true
+fi
+
+if [ ! -f "$ADD_MODEL_DIR/package.json" ]; then
+    echo "❌ Ошибка: файлы сабмодуля antigravity-add-model не найдены."
+    exit 1
+fi
+
 echo "📦 Подготовка и сборка модульного патча antigravity-add-model..."
 cd "$ADD_MODEL_DIR"
 
 if [ ! -d "node_modules" ]; then
     echo "⬇️ Установка зависимостей Node.js..."
-    npm install --silent
+    run_npm ci || run_npm install
 fi
 
-echo "🔨 Компиляция TypeScript в dist/..."
-npm run build --silent
+if [ ! -f "dist/main.js" ]; then
+    echo "🔨 Компиляция TypeScript в dist/..."
+    run_npm run build
+fi
+
+if pgrep -fa "antigravity" >/dev/null 2>&1; then
+    echo -e "\033[1;33m⚠️ Внимание: Antigravity сейчас запущен. Закройте и откройте приложение заново после применения патча.\033[0m"
+fi
 
 echo "🚀 Установка модульного загрузчика в $RESOURCES_DIR..."
 node scripts/deploy.mjs --resources "$RESOURCES_DIR"
 
-echo "✅ Патч успешно наложен на $TARGET_DIR"
+echo "$TARGET_DIR" > "$ROOT_DIR/.last_target_path"
+echo -e "\033[0;32m✅ Патч успешно наложен на $TARGET_DIR\033[0m"

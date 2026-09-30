@@ -22,7 +22,7 @@ echo -e "${CYAN}${BOLD}🚀 Запуск Antigravity All-in-One Suite...${NC}"
 MANAGER_APPIMAGE="$ROOT_DIR/bin/Antigravity-Manager.AppImage"
 
 is_manager_running() {
-    pgrep -f "antigravity-manager|Antigravity.Tools|antigravity-tools" >/dev/null 2>&1
+    pgrep -if "antigravity-manager|Antigravity-Manager|Antigravity.Tools|antigravity-tools" >/dev/null 2>&1
 }
 
 if is_manager_running; then
@@ -32,6 +32,11 @@ else
         echo -e "${YELLOW}⚡ Запуск Antigravity-Manager в фоне...${NC}"
         chmod +x "$MANAGER_APPIMAGE"
         nohup "$MANAGER_APPIMAGE" >/dev/null 2>&1 &
+        sleep 2
+        echo -e "${GREEN}✓ Antigravity-Manager запущен.${NC}"
+    elif command -v antigravity-manager >/dev/null 2>&1; then
+        echo -e "${YELLOW}⚡ Запуск системного antigravity-manager в фоне...${NC}"
+        nohup antigravity-manager >/dev/null 2>&1 &
         sleep 2
         echo -e "${GREEN}✓ Antigravity-Manager запущен.${NC}"
     else

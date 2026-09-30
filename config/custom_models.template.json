@@ -4,16 +4,43 @@
       "name": "gemini-3.8-flash-high",
       "displayName": "Gemini 3.8 Flash High (Native)",
       "provider": "google",
-      "apiUrl": "http://127.0.0.1:3000/v1beta",
+      "apiUrl": "http://127.0.0.1:8045/v1beta",
       "apiKey": "dummy-token",
       "stream": true,
       "description": "Google Gemini 3.8 Flash High through Antigravity-Manager"
     },
     {
+      "name": "gemini-3.8-flash-medium",
+      "displayName": "Gemini 3.8 Flash Medium (Native)",
+      "provider": "google",
+      "apiUrl": "http://127.0.0.1:8045/v1beta",
+      "apiKey": "dummy-token",
+      "stream": true,
+      "description": "Google Gemini 3.8 Flash Medium through Antigravity-Manager"
+    },
+    {
+      "name": "gemini-3.8-flash-low",
+      "displayName": "Gemini 3.8 Flash Low (Native)",
+      "provider": "google",
+      "apiUrl": "http://127.0.0.1:8045/v1beta",
+      "apiKey": "dummy-token",
+      "stream": true,
+      "description": "Google Gemini 3.8 Flash Low through Antigravity-Manager"
+    },
+    {
+      "name": "gemini-3.8-flash-tiered",
+      "displayName": "Gemini 3.8 Flash Tiered (Native)",
+      "provider": "google",
+      "apiUrl": "http://127.0.0.1:8045/v1beta",
+      "apiKey": "dummy-token",
+      "stream": true,
+      "description": "Google Gemini 3.8 Flash Tiered through Antigravity-Manager"
+    },
+    {
       "name": "gemini-3.7-flash-high",
       "displayName": "Gemini 3.7 Flash High (Native)",
       "provider": "google",
-      "apiUrl": "http://127.0.0.1:3000/v1beta",
+      "apiUrl": "http://127.0.0.1:8045/v1beta",
       "apiKey": "dummy-token",
       "stream": true,
       "description": "Google Gemini 3.7 Flash High through Antigravity-Manager"
@@ -22,7 +49,7 @@
       "name": "gemini-3.7-flash-medium",
       "displayName": "Gemini 3.7 Flash Medium (Native)",
       "provider": "google",
-      "apiUrl": "http://127.0.0.1:3000/v1beta",
+      "apiUrl": "http://127.0.0.1:8045/v1beta",
       "apiKey": "dummy-token",
       "stream": true,
       "description": "Google Gemini 3.7 Flash Medium through Antigravity-Manager"
@@ -31,19 +58,37 @@
       "name": "gemini-3.7-flash-low",
       "displayName": "Gemini 3.7 Flash Low (Native)",
       "provider": "google",
-      "apiUrl": "http://127.0.0.1:3000/v1beta",
+      "apiUrl": "http://127.0.0.1:8045/v1beta",
       "apiKey": "dummy-token",
       "stream": true,
       "description": "Google Gemini 3.7 Flash Low through Antigravity-Manager"
     },
     {
-      "name": "gemini-3.7-flash",
-      "displayName": "Gemini 3.7 Flash (Native)",
+      "name": "gemini-3.7-flash-tiered",
+      "displayName": "Gemini 3.7 Flash Tiered (Native)",
       "provider": "google",
-      "apiUrl": "http://127.0.0.1:3000/v1beta",
+      "apiUrl": "http://127.0.0.1:8045/v1beta",
       "apiKey": "dummy-token",
       "stream": true,
-      "description": "Google Gemini 3.7 Flash through Antigravity-Manager"
+      "description": "Google Gemini 3.7 Flash Tiered through Antigravity-Manager"
+    },
+    {
+      "name": "claude-sonnet-4-6",
+      "displayName": "Claude Sonnet 4.6 (Local)",
+      "provider": "openai",
+      "apiUrl": "http://127.0.0.1:8045/v1/chat/completions",
+      "apiKey": "dummy-token",
+      "stream": true,
+      "description": "Claude Sonnet 4.6 via Antigravity-Manager"
+    },
+    {
+      "name": "claude-opus-4-6",
+      "displayName": "Claude Opus 4.6 (Local)",
+      "provider": "openai",
+      "apiUrl": "http://127.0.0.1:8045/v1/chat/completions",
+      "apiKey": "dummy-token",
+      "stream": true,
+      "description": "Claude Opus 4.6 via Antigravity-Manager"
     }
   ]
 }

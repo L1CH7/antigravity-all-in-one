@@ -54,7 +54,19 @@ if [ "$NODE_VERSION" -lt 18 ]; then
     echo -e "${RED}❌ Требуется Node.js версии >= 18 (установлена v$(node -v)).${NC}"
     exit 1
 fi
-echo -e "${GREEN}✓ Node.js $(node -v), npm $(npm -v), git, curl, tar готовы.${NC}"
+
+NPM_VER=$(npm -v 2>/dev/null || true)
+if [ -z "$NPM_VER" ]; then
+    echo -e "${YELLOW}⚠️ Внимание: Системный npm завершился с ошибкой при запуске.${NC}"
+    if [ -d "/usr/lib/node_modules/npm/node_modules/semver" ]; then
+        echo -e "${YELLOW}💡 Причина: конфликт устаревших файлов в /usr/lib/node_modules/npm/node_modules/.${NC}"
+        echo -e "   Для постоянного системного исправления выполните:"
+        echo -e "   ${BOLD}sudo rm -rf /usr/lib/node_modules/npm/node_modules/{semver,nopt,node-gyp,.bin}${NC}"
+        echo -e "${GREEN}✓ Включен встроенный fallback-адаптер для сборки сабмодулей.${NC}"
+    fi
+    NPM_VER="shim-fallback"
+fi
+echo -e "${GREEN}✓ Node.js $(node -v), npm ($NPM_VER), git, curl, tar готовы.${NC}"
 
 # ─── 3. Поиск и выбор целевой установки Antigravity ───────────────────────────
 
@@ -79,6 +91,11 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+LAST_TARGET=""
+if [ -f "$ROOT_DIR/.last_target_path" ]; then
+    LAST_TARGET=$(cat "$ROOT_DIR/.last_target_path" 2>/dev/null || true)
+fi
+
 if [ -z "$TARGET_DIR" ]; then
     mapfile -t DETECTED_PATHS < <("$ROOT_DIR/scripts/detect-antigravity.sh")
     
@@ -92,7 +109,13 @@ if [ -z "$TARGET_DIR" ]; then
     else
         echo -e "${CYAN}Найдено несколько версий Antigravity в системе:${NC}"
         for i in "${!DETECTED_PATHS[@]}"; do
-            echo -e "  [${BOLD}$((i + 1))${NC}] ${DETECTED_PATHS[$i]}"
+            local_tag=""
+            if [ -n "$LAST_TARGET" ] && [ "${DETECTED_PATHS[$i]}" = "$LAST_TARGET" ]; then
+                local_tag=" ${GREEN}(предыдущий выбор)${NC}"
+            elif [ -f "${DETECTED_PATHS[$i]}/resources/app.asar" ]; then
+                local_tag=" ${YELLOW}(Agentic 2.0)${NC}"
+            fi
+            echo -e "  [${BOLD}$((i + 1))${NC}] ${DETECTED_PATHS[$i]}$local_tag"
         done
         echo -e "  [${BOLD}$(( ${#DETECTED_PATHS[@]} + 1 ))${NC}] Ввести путь вручную"
         
@@ -121,7 +144,7 @@ echo -e "${GREEN}🎯 Выбрана цель: ${BOLD}$TARGET_DIR${NC}"
 
 # ─── 4. Загрузка компонентов экосистемы (Manager + Unlocker) ─────────────────
 
-echo -e "\n${BOLD}[4/6] ⬇️ Загрузка и проверка бинарных компонентов...${NC}"
+echo -e "\n${BOLD}[4/6] ⬇️ Проверка и настройка бинарных компонентов...${NC}"
 
 echo -e "\n${CYAN}--- [4.1] Antigravity-Manager (lbjlaq/Antigravity-Manager) ---${NC}"
 "$ROOT_DIR/scripts/download-manager.sh"
@@ -139,15 +162,23 @@ echo -e "\n${BOLD}[5/6] 🛠️ Сборка и установка модуль�
 echo -e "\n${BOLD}[6/6] ⚙️ Проверка конфигурации custom_models.json...${NC}"
 CUSTOM_MODELS_DIR="$HOME/.gemini/antigravity"
 CUSTOM_MODELS_FILE="$CUSTOM_MODELS_DIR/custom_models.json"
+TELEGRAM_MODELS="$HOME/Downloads/Telegram Desktop/custom_models.json"
 
 mkdir -p "$CUSTOM_MODELS_DIR"
 
 if [ ! -f "$CUSTOM_MODELS_FILE" ]; then
-    echo "📋 Создание шаблона custom_models.json под локальный менеджер..."
-    cp "$ROOT_DIR/config/custom_models.template.json" "$CUSTOM_MODELS_FILE"
-    echo -e "${GREEN}✓ Файл создан: $CUSTOM_MODELS_FILE${NC}"
+    if [ -f "$TELEGRAM_MODELS" ]; then
+        echo "📋 Найдена готовая конфигурация в Telegram Desktop, копируем..."
+        cp "$TELEGRAM_MODELS" "$CUSTOM_MODELS_FILE"
+        echo -e "${GREEN}✓ Скопировано из: $TELEGRAM_MODELS${NC}"
+    else
+        echo "📋 Создание шаблона custom_models.json под локальный менеджер..."
+        cp "$ROOT_DIR/config/custom_models.template.json" "$CUSTOM_MODELS_FILE"
+        echo -e "${GREEN}✓ Файл создан: $CUSTOM_MODELS_FILE${NC}"
+    fi
 else
-    echo -e "${GREEN}✓ Существующий custom_models.json сохранен.${NC}"
+    MODEL_COUNT=$(grep -c '"name":' "$CUSTOM_MODELS_FILE" || echo "0")
+    echo -e "${GREEN}✓ Существующий custom_models.json сохранен (сконфигурировано моделей: $MODEL_COUNT).${NC}"
 fi
 
 # Сохраняем путь к целевой установке для скрипта start.sh
