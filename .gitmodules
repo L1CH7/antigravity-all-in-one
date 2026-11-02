@@ -1,3 +1,6 @@
 [submodule "modules/antigravity-add-model"]
 	path = modules/antigravity-add-model
 	url = https://github.com/L1CH7/antigravity-add-model.git
+[submodule "modules/agent-ecosystem"]
+	path = modules/agent-ecosystem
+	url = git@github.com:L1CH7/agent-ecosystem.git

@@ -29,7 +29,7 @@ echo -e "${NC}"
 
 # ─── 1. Инициализация Git-сабмодулей ──────────────────────────────────────────
 
-echo -e "${BOLD}[1/6] 📦 Инициализация и синхронизация Git-сабмодулей...${NC}"
+echo -e "${BOLD}[1/7] 📦 Инициализация и синхронизация Git-сабмодулей...${NC}"
 if [ -d "$ROOT_DIR/.git" ]; then
     git -C "$ROOT_DIR" submodule update --init --recursive
     echo -e "${GREEN}✓ Сабмодули успешно синхронизированы.${NC}"
@@ -39,7 +39,7 @@ fi
 
 # ─── 2. Проверка системных зависимостей ────────────────────────────────────────
 
-echo -e "\n${BOLD}[2/6] 🔍 Проверка системных зависимостей...${NC}"
+echo -e "\n${BOLD}[2/7] 🔍 Проверка системных зависимостей...${NC}"
 
 for cmd in node npm curl git tar; do
     if ! command -v "$cmd" >/dev/null 2>&1; then
@@ -70,7 +70,7 @@ echo -e "${GREEN}✓ Node.js $(node -v), npm ($NPM_VER), git, curl, tar гото
 
 # ─── 3. Поиск и выбор целевой установки Antigravity ───────────────────────────
 
-echo -e "\n${BOLD}[3/6] 🔎 Поиск установленных версий Antigravity...${NC}"
+echo -e "\n${BOLD}[3/7] 🔎 Поиск установленных версий Antigravity...${NC}"
 
 TARGET_DIR=""
 
@@ -144,7 +144,7 @@ echo -e "${GREEN}🎯 Выбрана цель: ${BOLD}$TARGET_DIR${NC}"
 
 # ─── 4. Загрузка компонентов экосистемы (Manager + Unlocker) ─────────────────
 
-echo -e "\n${BOLD}[4/6] ⬇️ Проверка и настройка бинарных компонентов...${NC}"
+echo -e "\n${BOLD}[4/7] ⬇️ Проверка и настройка бинарных компонентов...${NC}"
 
 echo -e "\n${CYAN}--- [4.1] Antigravity-Manager (lbjlaq/Antigravity-Manager) ---${NC}"
 "$ROOT_DIR/scripts/download-manager.sh"
@@ -154,12 +154,12 @@ echo -e "\n${CYAN}--- [4.2] Antigravity-Unlocker (confeden/Antigravity) ---${NC}
 
 # ─── 5. Сборка и установка модульного патча add-model ─────────────────────────
 
-echo -e "\n${BOLD}[5/6] 🛠️ Сборка и установка модульного загрузчика (antigravity-add-model)...${NC}"
+echo -e "\n${BOLD}[5/7] 🛠️ Сборка и установка модульного загрузчика (antigravity-add-model)...${NC}"
 "$ROOT_DIR/scripts/patch-target.sh" "$TARGET_DIR"
 
 # ─── 6. Настройка конфигурации моделей ─────────────────────────────────────────
 
-echo -e "\n${BOLD}[6/6] ⚙️ Проверка конфигурации custom_models.json...${NC}"
+echo -e "\n${BOLD}[6/7] ⚙️ Проверка конфигурации custom_models.json...${NC}"
 CUSTOM_MODELS_DIR="$HOME/.gemini/antigravity"
 CUSTOM_MODELS_FILE="$CUSTOM_MODELS_DIR/custom_models.json"
 TELEGRAM_MODELS="$HOME/Downloads/Telegram Desktop/custom_models.json"
@@ -179,6 +179,13 @@ if [ ! -f "$CUSTOM_MODELS_FILE" ]; then
 else
     MODEL_COUNT=$(grep -c '"name":' "$CUSTOM_MODELS_FILE" || echo "0")
     echo -e "${GREEN}✓ Существующий custom_models.json сохранен (сконфигурировано моделей: $MODEL_COUNT).${NC}"
+fi
+
+# ─── 7. Настройка универсальной экосистемы агентов (agent-ecosystem) ───────────
+
+if [ -f "$ROOT_DIR/modules/agent-ecosystem/symlink.sh" ]; then
+    echo -e "\n${BOLD}[7/7] 🌐 Настройка универсальной экосистемы агентов (agent-ecosystem)...${NC}"
+    "$ROOT_DIR/modules/agent-ecosystem/symlink.sh" --ide antigravity
 fi
 
 # Сохраняем путь к целевой установке для скрипта start.sh

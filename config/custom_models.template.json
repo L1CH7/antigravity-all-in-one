@@ -89,6 +89,15 @@
       "apiKey": "dummy-token",
       "stream": true,
       "description": "Claude Opus 4.6 via Antigravity-Manager"
+    },
+    {
+      "name": "local-coder",
+      "displayName": "A100 Local Coder (Qwen3-30B)",
+      "provider": "openai",
+      "apiUrl": "http://172.28.225.35:4000/v1",
+      "apiKey": "sk-local-pilot",
+      "stream": true,
+      "description": "Qwen3-Coder-30B-A3B (128k context) on NVIDIA A100 via LiteLLM"
     }
   ]
 }
