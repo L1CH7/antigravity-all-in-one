@@ -1,103 +1,114 @@
 {
   "models": [
     {
-      "name": "gemini-3.8-flash-high",
+      "name": "models/gemini-3.8-flash-high",
       "displayName": "Gemini 3.8 Flash High (Native)",
       "provider": "google",
       "apiUrl": "http://127.0.0.1:8045/v1beta",
-      "apiKey": "dummy-token",
+      "apiKey": "none",
       "stream": true,
-      "description": "Google Gemini 3.8 Flash High through Antigravity-Manager"
+      "description": "Google Gemini 3.8 Flash High through Antigravity-Manager",
+      "externalModelName": "gemini-3.8-flash-high"
     },
     {
-      "name": "gemini-3.8-flash-medium",
+      "name": "models/gemini-3.8-flash-medium",
       "displayName": "Gemini 3.8 Flash Medium (Native)",
       "provider": "google",
       "apiUrl": "http://127.0.0.1:8045/v1beta",
-      "apiKey": "dummy-token",
+      "apiKey": "none",
       "stream": true,
-      "description": "Google Gemini 3.8 Flash Medium through Antigravity-Manager"
+      "description": "Google Gemini 3.8 Flash Medium through Antigravity-Manager",
+      "externalModelName": "gemini-3.8-flash-medium"
     },
     {
-      "name": "gemini-3.8-flash-low",
+      "name": "models/gemini-3.8-flash-low",
       "displayName": "Gemini 3.8 Flash Low (Native)",
       "provider": "google",
       "apiUrl": "http://127.0.0.1:8045/v1beta",
-      "apiKey": "dummy-token",
+      "apiKey": "none",
       "stream": true,
-      "description": "Google Gemini 3.8 Flash Low through Antigravity-Manager"
+      "description": "Google Gemini 3.8 Flash Low through Antigravity-Manager",
+      "externalModelName": "gemini-3.8-flash-low"
     },
     {
-      "name": "gemini-3.8-flash-tiered",
+      "name": "models/gemini-3.8-flash-tiered",
       "displayName": "Gemini 3.8 Flash Tiered (Native)",
       "provider": "google",
       "apiUrl": "http://127.0.0.1:8045/v1beta",
-      "apiKey": "dummy-token",
+      "apiKey": "none",
       "stream": true,
-      "description": "Google Gemini 3.8 Flash Tiered through Antigravity-Manager"
+      "description": "Google Gemini 3.8 Flash Tiered through Antigravity-Manager",
+      "externalModelName": "gemini-3.8-flash-tiered"
     },
     {
-      "name": "gemini-3.7-flash-high",
+      "name": "models/gemini-3.7-flash-high",
       "displayName": "Gemini 3.7 Flash High (Native)",
       "provider": "google",
       "apiUrl": "http://127.0.0.1:8045/v1beta",
-      "apiKey": "dummy-token",
+      "apiKey": "none",
       "stream": true,
-      "description": "Google Gemini 3.7 Flash High through Antigravity-Manager"
+      "description": "Google Gemini 3.7 Flash High through Antigravity-Manager",
+      "externalModelName": "gemini-3.7-flash-high"
     },
     {
-      "name": "gemini-3.7-flash-medium",
+      "name": "models/gemini-3.7-flash-medium",
       "displayName": "Gemini 3.7 Flash Medium (Native)",
       "provider": "google",
       "apiUrl": "http://127.0.0.1:8045/v1beta",
-      "apiKey": "dummy-token",
+      "apiKey": "none",
       "stream": true,
-      "description": "Google Gemini 3.7 Flash Medium through Antigravity-Manager"
+      "description": "Google Gemini 3.7 Flash Medium through Antigravity-Manager",
+      "externalModelName": "gemini-3.7-flash-medium"
     },
     {
-      "name": "gemini-3.7-flash-low",
+      "name": "models/gemini-3.7-flash-low",
       "displayName": "Gemini 3.7 Flash Low (Native)",
       "provider": "google",
       "apiUrl": "http://127.0.0.1:8045/v1beta",
-      "apiKey": "dummy-token",
+      "apiKey": "none",
       "stream": true,
-      "description": "Google Gemini 3.7 Flash Low through Antigravity-Manager"
+      "description": "Google Gemini 3.7 Flash Low through Antigravity-Manager",
+      "externalModelName": "gemini-3.7-flash-low"
     },
     {
-      "name": "gemini-3.7-flash-tiered",
+      "name": "models/gemini-3.7-flash-tiered",
       "displayName": "Gemini 3.7 Flash Tiered",
       "provider": "google",
       "apiUrl": "http://127.0.0.1:8045/v1beta",
-      "apiKey": "dummy-token",
+      "apiKey": "none",
       "stream": true,
-      "description": "Google Gemini 3.7 Flash Tiered through Antigravity-Manager"
+      "description": "Google Gemini 3.7 Flash Tiered through Antigravity-Manager",
+      "externalModelName": "gemini-3.7-flash-tiered"
     },
     {
-      "name": "claude-sonnet-4-6",
+      "name": "models/claude-sonnet-4-6",
       "displayName": "Claude Sonnet 4.6 (Local)",
       "provider": "openai",
       "apiUrl": "http://127.0.0.1:8045/v1/chat/completions",
-      "apiKey": "dummy-token",
+      "apiKey": "none",
       "stream": true,
-      "description": "Claude Sonnet 4.6 via Antigravity-Manager"
+      "description": "Claude Sonnet 4.6 via Antigravity-Manager",
+      "externalModelName": "claude-sonnet-4-6"
     },
     {
-      "name": "claude-opus-4-6",
+      "name": "models/claude-opus-4-6",
       "displayName": "Claude Opus 4.6 (Local)",
       "provider": "openai",
       "apiUrl": "http://127.0.0.1:8045/v1/chat/completions",
-      "apiKey": "dummy-token",
+      "apiKey": "none",
       "stream": true,
-      "description": "Claude Opus 4.6 via Antigravity-Manager"
+      "description": "Claude Opus 4.6 via Antigravity-Manager",
+      "externalModelName": "claude-opus-4-6"
     },
     {
-      "name": "local-coder",
+      "name": "models/local-coder",
       "displayName": "A100 Local Coder (Qwen3-30B)",
       "provider": "openai",
       "apiUrl": "http://172.28.225.35:4000/v1",
       "apiKey": "sk-local-pilot",
       "stream": true,
-      "description": "Qwen3-Coder-30B-A3B (128k context) on NVIDIA A100 via LiteLLM"
+      "description": "Qwen3-Coder-30B-A3B (128k context) on NVIDIA A100 via LiteLLM",
+      "externalModelName": "local-coder"
     }
   ]
 }
