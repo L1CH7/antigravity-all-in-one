@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
     Antigravity All-in-One — Единый мастер-лаунчер для Windows.
 .DESCRIPTION
@@ -157,6 +157,7 @@ Write-Green "✨ Запуск Antigravity: $targetExe"
 
 # Отключаем обращения к WSL для работы исключительно в среде Windows
 $env:ANTIGRAVITY_WSL_DISTRO = ''
+$env:ANTIGRAVITY_DISABLE_WSL = '1'
 
 $processParams = @{
     FilePath = $targetExe
