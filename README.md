@@ -9,8 +9,8 @@
 
 ---
 
-## ⚡ Быстрый старт (в 1 команду)
-
+## ⚡ Быстрый старт
+### 🐧 Linux / macOS
 ```bash
 # 1. Клонировать репозиторий вместе с сабмодулями
 git clone --recursive https://github.com/L1CH7/antigravity-all-in-one.git
@@ -23,6 +23,24 @@ cd antigravity-all-in-one
 ./start.sh
 ```
 
+### 🪟 Windows (PowerShell / CMD)
+```cmd
+:: 1. Клонировать репозиторий вместе с сабмодулями
+git clone --recursive https://github.com/L1CH7/antigravity-all-in-one.git
+cd antigravity-all-in-one
+
+:: 2. Установка и наложение модульного патча (в один клик)
+install.bat
+:: (или в PowerShell: .\install.ps1)
+
+:: 3. Экспресс-диагностика доступности портов и моделей
+test-models.bat
+:: (или в PowerShell: .\test-models.ps1)
+
+:: 4. Запуск связки
+start.bat
+:: (или в PowerShell: .\start.ps1)
+```
 ---
 
 ## 🏗️ Архитектура связки
